@@ -1,5 +1,6 @@
 package com.codeclan.fileservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,9 @@ public class File {
     private String name;
     private String extension;
     private int size;
+    @ManyToOne
+    @JoinColumn(name = "folder_id", nullable = false)
+    @JsonIgnoreProperties({"files"})
     private Folder folder;
 
     public File(String name, String extension, int size, Folder folder) {
