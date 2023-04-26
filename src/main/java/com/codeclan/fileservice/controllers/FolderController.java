@@ -5,9 +5,7 @@ import com.codeclan.fileservice.repositories.FolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,10 +23,20 @@ public class FolderController {
     // SHOW ONE ROUTE
     @GetMapping(value = "/folders/{id}")
     public ResponseEntity getFolder(@PathVariable Long id) {
-        return new ResponseEntity(folderRepository.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(folderRepository.findById(id), HttpStatus.OK);
     }
 
     // SAVE/CREATE ROUTE
+    @PostMapping(value = "/folders")
+    public ResponseEntity saveFolder(@RequestBody Folder folder) {
+        folderRepository.save(folder);
+        return new ResponseEntity<>(folder, HttpStatus.CREATED);
+    }
     // UPDATE ROUTE
+//    @PutMapping(value = "/folders/{id}")
+//    public  ResponseEntity updateFolder(@PathVariable Long id, @RequestBody Folder folder) {
+//        folderRepository.save(folder);
+//        return new ResponseEntity<>(folderRepository.findById(id), HttpStatus.CREATED)
+//    }
     // DELETE ROUTE
 }
